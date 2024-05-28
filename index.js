@@ -48,3 +48,13 @@ async function openConnection(){
         console.error('Unable to connect to the database:', error);
     }
 }
+
+async function insertPlate(name, description, imageUrl){
+    const Plate = await openConnection()
+    try {
+        Plate.create({ name: name, description: description, imageUrl: imageUrl })
+        return {msg: 'plate created sucessfully'}
+    } catch (err){
+        return {msg: `error ${err}`}    
+    }
+}
