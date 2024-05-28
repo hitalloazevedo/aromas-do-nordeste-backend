@@ -4,9 +4,9 @@ async function insertPlate(name, description, imageUrl){
     const Plate = await openConnection()
     try {
         Plate.create({ name: name, description: description, imageUrl: imageUrl })
-        return {msg: 'plate created sucessfully'}
+        return {code: 201, msg: 'plate created sucessfully'}
     } catch (err){
-        return {msg: `error ${err}`}    
+        return {code: 500, msg: `plate not created: ${err}`}    
     }
 }
 
@@ -16,9 +16,24 @@ async function getAllPlates(){
     return JSON.stringify(plates)
 }
 
+async function deletePlate(id){
+    const Plate = await openConnection()
+    try {
+        await Plate.destroy({
+            where: {
+              id: id,
+            },
+        });
+        return {code: 202, msg: `plate deleted sucessfully`}
+    } catch (err) {
+        return {code: 500, msg: `plate not deleted: ${err}`}
+    }
+}
+
 const controller = {
     insertPlate, 
-    getAllPlates
+    getAllPlates,
+    deletePlate
 }
 
 export default controller
