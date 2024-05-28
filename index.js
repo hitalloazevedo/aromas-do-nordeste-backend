@@ -9,9 +9,9 @@ app.post('/cardapio', async (req, res) => {
     const { name, description, imageUrl} = req.body;
     const response = await controller.insertPlate(name, description, imageUrl)
     if (response.code == 201){
-        res.status(response.code).send(response.msg)
+        res.status(response.code).send({msg: response.msg})
     } else {
-        res.status(response.code).send(response.msg)
+        res.status(response.code).send({msg: response.msg})
     }
 })
 
@@ -23,9 +23,19 @@ app.get('/cardapio', async (req, res) => {
 app.delete('/cardapio/:id', async(req, res) => {
     const response = await controller.deletePlate(req.param('id'))
     if (response.code == 202){
-        res.status(response.code).send(response.msg)
+        res.status(response.code).send({msg: response.msg})
     } else {
-        res.status(response.code).send(response.msg)
+        res.status(response.code).send({msg: response.msg})
+    }
+})
+
+app.patch('/cardapio', async (req, res) => {
+    const {id, ...data} = req.body;
+    const response = await controller.updatePlate(id, data)
+    if (response.code == 202){
+        res.status(response.code).send({msg: response.msg})
+    } else {
+        res.status(response.code).send({msg: response.msg})
     }
 })
 

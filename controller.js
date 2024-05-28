@@ -30,10 +30,32 @@ async function deletePlate(id){
     }
 }
 
+async function updatePlate(id, data){
+    const Plate = await openConnection()
+    try {
+        await Plate.update(
+            { 
+                name: data.name,
+                description: data.description,
+                imageUrl: data.imageUrl
+             },
+            {
+              where: {
+                id: id,
+              },
+            },
+        );
+        return {code: 202, msg: `plate updated sucessfully`}
+    } catch (err) {
+        return {code: 500, msg: `plate not updated: ${err}`}
+    }
+}
+
 const controller = {
     insertPlate, 
     getAllPlates,
-    deletePlate
+    deletePlate,
+    updatePlate
 }
 
 export default controller
