@@ -64,3 +64,18 @@ async function getAllPlates(){
     const plates = await Plate.findAll()
     return JSON.stringify(plates)
 }
+
+app.post('/cadastrar', async (req, res) => {
+    const { name, description, imageUrl} = req.body;
+    const msg = await insertPlate(name, description, imageUrl)
+    res.status(201).send(msg)
+})
+
+app.get('/cardapio', async (req, res) => {
+    const data = await getAllPlates()
+    res.status(200).send(data)
+})
+
+app.listen(port, () => {
+    console.log(`running at port ${port}`)
+})
