@@ -58,3 +58,9 @@ async function insertPlate(name, description, imageUrl){
         return {msg: `error ${err}`}    
     }
 }
+
+async function getAllPlates(){
+    const Plate = await openConnection()
+    const plates = await Plate.findAll()
+    return JSON.stringify(plates)
+}
