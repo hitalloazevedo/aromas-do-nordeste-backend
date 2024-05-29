@@ -7,37 +7,41 @@ app.use(express.json())
 app.use(cors())
 const port = 3000
 
-app.post('/cardapio', async (req, res) => {
-    const { name, description, imageUrl} = req.body;
-    const response = await controller.insertPlate(name, description, imageUrl)
-    if (response.code == 201){
-        res.status(response.code).send({msg: response.msg})
+app.get('/cardapio', async (req, res) => {
+    const query = await controller.getAllPlates()
+    if (query.code == 200){
+        res.status(query.code).send(query.data)
     } else {
-        res.status(response.code).send({msg: response.msg})
+        res.status(query.code).send({code: query.error.code, msg: query.error.message})
     }
 })
 
-app.get('/cardapio', async (req, res) => {
-    const data = await controller.getAllPlates()
-    res.status(200).send(data)
+app.post('/cardapio', async (req, res) => {
+    const { name, description, imageUrl} = req.body;
+    const query = await controller.insertPlate(name, description, imageUrl)
+    if (query.code == 201){
+        res.status(query.code).send({msg: query.msg})
+    } else {
+        res.status(query.code).send({code: query.error.code, msg: query.error.message})
+    }
 })
 
 app.delete('/cardapio/:id', async(req, res) => {
-    const response = await controller.deletePlate(req.param('id'))
-    if (response.code == 202){
-        res.status(response.code).send({msg: response.msg})
+    const query = await controller.deletePlate(req.query('id'))
+    if (query.code == 200){
+        res.status(query.code).send({msg: query.msg})
     } else {
-        res.status(response.code).send({msg: response.msg})
+        res.status(query.code).send({code: query.error.code, msg: query.error.message})
     }
 })
 
 app.patch('/cardapio', async (req, res) => {
     const {id, ...data} = req.body;
-    const response = await controller.updatePlate(id, data)
-    if (response.code == 202){
-        res.status(response.code).send({msg: response.msg})
+    const query = await controller.updatePlate(id, data)
+    if (query.code == 202){
+        res.status(query.code).send({msg: query.msg})
     } else {
-        res.status(response.code).send({msg: response.msg})
+        res.status(query.code).send({code: query.error.code, msg: query.error.message})
     }
 })
 
