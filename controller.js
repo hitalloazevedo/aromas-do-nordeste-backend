@@ -54,11 +54,21 @@ async function updatePlate(id, data){
     }
 }
 
+async function getOnePlate(id){
+    const { data, error } = await supabase.from('plates-db').select().eq('id', id)
+    if (!error){
+        return {code: 200, data: data}
+    } else {
+        return {code: 500, error}
+    }
+}
+
 const controller = {
     insertPlate, 
     getAllPlates,
     deletePlate,
-    updatePlate
+    updatePlate,
+    getOnePlate
 }
 
 export default controller

@@ -16,6 +16,16 @@ app.get('/cardapio', async (req, res) => {
     }
 })
 
+app.get('/cardapio/:id', async (req, res) => {
+    const query = await controller.getOnePlate(req.param('id'))
+    if (query.code == 200){
+        console.log(query.data)
+        res.status(query.code).send(query.data)
+    } else {
+        res.status(query.code).send({code: query.error.code, msg: query.error.message})
+    }
+})
+
 app.post('/cardapio', async (req, res) => {
     const { name, description, imageUrl} = req.body;
     const query = await controller.insertPlate(name, description, imageUrl)
@@ -27,7 +37,7 @@ app.post('/cardapio', async (req, res) => {
 })
 
 app.delete('/cardapio/:id', async(req, res) => {
-    const query = await controller.deletePlate(req.query('id'))
+    const query = await controller.deletePlate(req.param('id'))
     if (query.code == 200){
         res.status(query.code).send({msg: query.msg})
     } else {
