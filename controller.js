@@ -1,53 +1,56 @@
-import openConnection from "./connection.js"
+import supabase from "./connection.js"
 
 async function insertPlate(name, description, imageUrl){
-    const Plate = await openConnection()
-    try {
-        Plate.create({ name: name, description: description, imageUrl: imageUrl })
-        return {code: 201, msg: 'plate created sucessfully'}
-    } catch (err){
-        return {code: 500, msg: `plate not created: ${err}`}    
+    const { error } = await supabase
+    .from('plates-db')
+    .insert({ 
+        plate_name: name,
+        plate_description: description,
+        image_url: imageUrl
+    })
+
+    if (!error){
+        return {code: 201, msg: 'new plate created sucessfully'}
+    } else {
+        return {code: 500, error}
     }
 }
 
 async function getAllPlates(){
-    const Plate = await openConnection()
-    const plates = await Plate.findAll()
-    return JSON.stringify(plates)
+    const { data, error } = await supabase.from('plates-db').select()
+    if (!error){
+        return {code: 200, data: data}
+    } else {
+        return {code: 500, error}
+    }
 }
 
 async function deletePlate(id){
-    const Plate = await openConnection()
-    try {
-        await Plate.destroy({
-            where: {
-              id: id,
-            },
-        });
-        return {code: 202, msg: `plate deleted sucessfully`}
-    } catch (err) {
-        return {code: 500, msg: `plate not deleted: ${err}`}
+    const { error } = await supabase
+    .from('plates-db')
+    .delete()
+    .eq('id', id)
+    if (!error){
+        return {code: 200, msg: "plate deleted sucessfully"}
+    } else {
+        return {code: 500, error}
     }
 }
 
 async function updatePlate(id, data){
-    const Plate = await openConnection()
-    try {
-        await Plate.update(
-            { 
-                name: data.name,
-                description: data.description,
-                imageUrl: data.imageUrl
-             },
-            {
-              where: {
-                id: id,
-              },
-            },
-        );
-        return {code: 202, msg: `plate updated sucessfully`}
-    } catch (err) {
-        return {code: 500, msg: `plate not updated: ${err}`}
+    const { error } = await supabase
+    .from('plates-db')
+    .update({ 
+        plate_name: data.name,
+        plate_description: data.description,
+        image_url: data.imageUrl
+     })
+    .eq('id', id)
+
+    if (!error){
+        return {code: 202, msg: "plate updated sucessfully"}
+    } else {
+        return {code: 500, error}
     }
 }
 
