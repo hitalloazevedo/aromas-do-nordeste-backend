@@ -41,7 +41,7 @@ Instalando dependências
   npm install
 ```
 
-Iniciando o servidor
+Iniciando o servidor (Antes, configure o banco e as variáveis de ambiente)
 
 ```bash
   npm run dev
@@ -77,7 +77,7 @@ Adicione as seguintes variáveis no seu `.env`
 
 `ALLOWED_URL="*"`
 
-`DEV="true"`
+`DEV=true`
 
 #### As variáveis `ALLOWED_URL` e `DEV` permitirá você utilizar o dashboard.
 #### Verifique se a `RLS` do supabase está impedindo o banco de fazer queries.
