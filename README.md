@@ -1,6 +1,7 @@
 
 # Aromas do nordeste (Backend)
 Esta aplicação é um web service (api rest), que permite operações de (CRUD) e que fornece dados para uma aplicação frontend de um restaurante [(Aromas do nordeste)](https://hitalloazevedo.github.io/aromas-do-nordeste-frontend/).  
+Projeto: [Aromas do nordeste frontend](https://github.com/hitalloazevedo/aromas-do-nordeste-frontend)
 
 Os dados fornecidos são: id do prato, nome do prato, descrição do prato e url da imagem. 
 
