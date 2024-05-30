@@ -7,11 +7,12 @@ configDotenv()
 const app = express()
 app.use(express.json())
 
-const allowedOrigin = String(process.env.ALLOWED_URL)
+const allowedOrigin = String(process.env.ALLOWED_URL) || '*'
 app.use(cors({
     origin: [allowedOrigin],
 }))
 
+console.log(allowedOrigin)
 const port = 3000
 
 app.get('/cardapio', async (req, res) => {
@@ -34,31 +35,46 @@ app.get('/cardapio/:id', async (req, res) => {
 })
 
 app.post('/cardapio', async (req, res) => {
-    const { name, description, imageUrl} = req.body;
-    const query = await controller.insertPlate(name, description, imageUrl)
-    if (query.code == 201){
-        res.status(query.code).send({msg: query.msg})
+    const env = Boolean(process.env.DEV)
+    if (env) {
+        const { name, description, imageUrl} = req.body;
+        const query = await controller.insertPlate(name, description, imageUrl)
+        if (query.code == 201){
+            res.status(query.code).send({msg: query.msg})
+        } else {
+            res.status(query.code).send({code: query.error.code, msg: query.error.message})
+        }
     } else {
-        res.status(query.code).send({code: query.error.code, msg: query.error.message})
+        res.status(401).send({msg: 'this feature is activated only in local server'})
     }
 })
 
 app.delete('/cardapio/:id', async(req, res) => {
-    const query = await controller.deletePlate(req.param('id'))
-    if (query.code == 200){
-        res.status(query.code).send({msg: query.msg})
+    const env = Boolean(process.env.DEV)
+    if (env){
+        const query = await controller.deletePlate(req.param('id'))
+        if (query.code == 200){
+            res.status(query.code).send({msg: query.msg})
+        } else {
+            res.status(query.code).send({code: query.error.code, msg: query.error.message})
+        }
     } else {
-        res.status(query.code).send({code: query.error.code, msg: query.error.message})
+        res.status(401).send({msg: 'this feature is activated only in local server'})
     }
 })
 
 app.patch('/cardapio', async (req, res) => {
-    const {id, ...data} = req.body;
-    const query = await controller.updatePlate(id, data)
-    if (query.code == 202){
-        res.status(query.code).send({msg: query.msg})
+    const env = Boolean(process.env.DEV)
+    if (env){
+        const {id, ...data} = req.body;
+        const query = await controller.updatePlate(id, data)
+        if (query.code == 202){
+            res.status(query.code).send({msg: query.msg})
+        } else {
+            res.status(query.code).send({code: query.error.code, msg: query.error.message})
+        }
     } else {
-        res.status(query.code).send({code: query.error.code, msg: query.error.message})
+        res.status(401).send({msg: 'this feature is activated only in local server'})
     }
 })
 
