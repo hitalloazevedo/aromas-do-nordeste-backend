@@ -7,8 +7,10 @@ configDotenv()
 const app = express()
 app.use(express.json())
 
+const origin = process.env.DEV ? "*" : [String(process.env.ALLOWED_URL)]
+
 app.use(cors({
-    origin: [String(process.env.ALLOWED_URL)],
+    origin: origin,
 }))
 
 const port = 3000
