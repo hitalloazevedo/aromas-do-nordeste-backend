@@ -7,7 +7,11 @@ configDotenv()
 const app = express()
 app.use(express.json())
 app.use(cors({
-    origin: process.env.ALLOWED_URL,
+    origin: [
+        'https://hitalloazevedo.github.io/aromas-do-nordeste-frontend/cardapio',
+        'https://hitalloazevedo.github.io/aromas-do-nordeste-frontend',
+        'https://hitalloazevedo.github.io',
+    ],
 }))
 
 const port = 3000
