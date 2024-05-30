@@ -3,6 +3,8 @@
 
 Esta aplicação é um web service (api), que fornece dados para uma aplicação frontend de um restaurante [(Aromas do nordeste)](https://hitalloazevedo.github.io/aromas-do-nordeste-frontend/).  
 
+Os dados fornecidos são: id do prato, nome do prato, descrição do prato e url da imagem. 
+
 
 ## Utilizando localmente
 Para a API funcionar corretamente um banco de dados [supabase](https://supabase.com/) é necessario.
@@ -61,7 +63,10 @@ Adicione as variáveis seguinte no seu `.env`
 
 `ALLOWED_URL="*"`
 
-Verifique se a `RLS` do supabase está impedindo o banco de fazer queries.
+`DEV="true"`
+
+#### As variáveis `ALLOWED_URL` e `DEV` permitirá você utilizar o dashboard.
+#### Verifique se a `RLS` do supabase está impedindo o banco de fazer queries.
 ## API Reference
 
 #### Retornar todos os pratos
