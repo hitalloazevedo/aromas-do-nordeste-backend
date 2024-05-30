@@ -6,8 +6,10 @@ configDotenv()
 
 const app = express()
 app.use(express.json())
+
+const allowedOrigin = String(process.env.ALLOWED_URL)
 app.use(cors({
-    origin: [process.env.ALLOWED_URL],
+    origin: [allowedOrigin],
 }))
 
 const port = 3000
