@@ -7,7 +7,7 @@ configDotenv()
 const app = express()
 app.use(express.json())
 app.use(cors({
-    origin: 'https://hitalloazevedo.github.io/aromas-do-nordeste-frontend',
+    origin: ['https://hitalloazevedo.github.io/aromas-do-nordeste-frontend'],
 }))
 
 const port = 3000
