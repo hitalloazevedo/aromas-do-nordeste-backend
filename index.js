@@ -2,15 +2,13 @@ import express from 'express'
 import controller from './controller.js'
 import cors from 'cors'
 import { configDotenv } from "dotenv";
+
 configDotenv()
 
 const app = express()
 app.use(express.json())
-
-const origin = process.env.DEV ? "*" : [String(process.env.ALLOWED_URL)]
-
 app.use(cors({
-    origin: origin,
+    origin: [String(process.env.ALLOWED_URL)],
 }))
 
 const port = 3000
