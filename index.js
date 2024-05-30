@@ -11,7 +11,6 @@ app.use(cors({
     origin: [String(process.env.ALLOWED_URL)],
 }))
 
-console.log(allowedOrigin)
 const port = 3000
 
 app.get('/cardapio', async (req, res) => {
