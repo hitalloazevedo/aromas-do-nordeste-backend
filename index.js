@@ -7,9 +7,8 @@ configDotenv()
 const app = express()
 app.use(express.json())
 
-const allowedOrigin = String(process.env.ALLOWED_URL) || '*'
 app.use(cors({
-    origin: [allowedOrigin],
+    origin: [String(process.env.ALLOWED_URL)],
 }))
 
 console.log(allowedOrigin)
@@ -35,8 +34,7 @@ app.get('/cardapio/:id', async (req, res) => {
 })
 
 app.post('/cardapio', async (req, res) => {
-    const env = Boolean(process.env.DEV)
-    if (env) {
+    if (process.env.DEV) {
         const { name, description, imageUrl} = req.body;
         const query = await controller.insertPlate(name, description, imageUrl)
         if (query.code == 201){
@@ -50,8 +48,7 @@ app.post('/cardapio', async (req, res) => {
 })
 
 app.delete('/cardapio/:id', async(req, res) => {
-    const env = Boolean(process.env.DEV)
-    if (env){
+    if (process.env.DEV){
         const query = await controller.deletePlate(req.param('id'))
         if (query.code == 200){
             res.status(query.code).send({msg: query.msg})
@@ -64,8 +61,7 @@ app.delete('/cardapio/:id', async(req, res) => {
 })
 
 app.patch('/cardapio', async (req, res) => {
-    const env = Boolean(process.env.DEV)
-    if (env){
+    if (process.env.DEV){
         const {id, ...data} = req.body;
         const query = await controller.updatePlate(id, data)
         if (query.code == 202){
