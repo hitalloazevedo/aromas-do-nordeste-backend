@@ -1,17 +1,15 @@
 import express from 'express'
 import controller from './controller.js'
 import cors from 'cors'
+import { configDotenv } from "dotenv";
+configDotenv()
 
 const app = express()
 app.use(express.json())
 app.use(cors({
-    origin: [
-        'https://hitalloazevedo.github.io/aromas-do-nordeste-frontend',
-        'https://hitalloazevedo.github.io/',
-        'https://hitalloazevedo.github.io/aromas-do-nordeste-frontend/edit',
-        'https://hitalloazevedo.github.io/aromas-do-nordeste-frontend/new'
-    ]
+    origin: process.env.ALLOWED_URL,
 }))
+
 const port = 3000
 
 app.get('/cardapio', async (req, res) => {
