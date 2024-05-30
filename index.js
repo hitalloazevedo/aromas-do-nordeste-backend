@@ -7,7 +7,7 @@ configDotenv()
 const app = express()
 app.use(express.json())
 app.use(cors({
-    origin: ['https://hitalloazevedo.github.io'],
+    origin: [process.env.ALLOWED_URL],
 }))
 
 const port = 3000
