@@ -4,6 +4,21 @@ Esta aplicação é um web service (api rest), que permite operações de (CRUD)
 
 Os dados fornecidos são: id do prato, nome do prato, descrição do prato e url da imagem. 
 
+## Tecnologias e técnicas utilizadas
+
+- Nodejs
+- Express
+- Postgres
+- Supabase
+- Modularização
+
+## Features
+
+- Inserir novo prato
+- Alterar um prato existente
+- Deletar um prato
+- Retornar todos os pratos
+- Retornar apenas um prato
 
 ## Utilizando localmente
 Para a API funcionar corretamente um banco de dados [supabase](https://supabase.com/) é necessario.
@@ -66,6 +81,7 @@ Adicione as seguintes variáveis no seu `.env`
 
 #### As variáveis `ALLOWED_URL` e `DEV` permitirá você utilizar o dashboard.
 #### Verifique se a `RLS` do supabase está impedindo o banco de fazer queries.
+
 ## API Reference
 
 #### Retornar todos os pratos
