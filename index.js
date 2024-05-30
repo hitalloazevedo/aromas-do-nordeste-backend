@@ -4,7 +4,14 @@ import cors from 'cors'
 
 const app = express()
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+    origin: [
+        'https://hitalloazevedo.github.io/aromas-do-nordeste-frontend',
+        'https://hitalloazevedo.github.io/',
+        'https://hitalloazevedo.github.io/aromas-do-nordeste-frontend/edit',
+        'https://hitalloazevedo.github.io/aromas-do-nordeste-frontend/new'
+    ]
+}))
 const port = 3000
 
 app.get('/cardapio', async (req, res) => {
