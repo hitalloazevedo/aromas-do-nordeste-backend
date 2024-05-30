@@ -55,7 +55,7 @@ faça um import na sua tabela usando o `plates-db_rows.csv`
 
 ## Variáveis de ambiente
 
-Adicione as variáveis seguinte no seu `.env`
+Adicione as seguintes variáveis no seu `.env`
 
 `SUPABASE_URL="<SUA_URL_SUPABASE>"`
 
